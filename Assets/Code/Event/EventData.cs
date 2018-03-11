@@ -42,3 +42,12 @@ public class EventTouch : EventData
         this.pos = pos;
     }
 }
+
+public class EventTouchMap : EventData
+{
+    public Vector3 pos { get; private set; }
+    public EventTouchMap(Vector3 pos) : base(EventID.EVENT_TOUCH_MAP)
+    {
+        this.pos = pos;
+    }
+}

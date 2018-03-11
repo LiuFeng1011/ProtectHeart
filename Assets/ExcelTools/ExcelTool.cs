@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using Excel;
 using System.Data;
-
+using LitJson;
 
 public class ExcelTool {
 
@@ -112,10 +112,10 @@ public class ExcelTool {
 				}else{
 					info.SetValue(o,val);
 				}
-				//Debuger.Log(val);
 			}
 			//o.toString();
 
+            Debug.Log(JsonMapper.ToJson(o));
             dataList.Add(o);
 		}	
 

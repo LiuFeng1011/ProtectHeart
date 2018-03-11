@@ -43,8 +43,10 @@ public class TouchManager : BaseGameObject {
         if (Physics.Raycast(ray, out hitInfo , validTouchDistance , LayerMask.GetMask("groundPlane") ))  
         {  
             GameObject gameObj = hitInfo.collider.gameObject;  
-            Vector3 hitPoint = hitInfo.point;  
-            Debug.Log("click object name is " + gameObj.name + " , hit point " + hitPoint.ToString() );  
+            Vector3 hitPoint = hitInfo.point;
+
+            (new EventTouchMap(hitPoint)).Send();
+ 
         }  
 
     }

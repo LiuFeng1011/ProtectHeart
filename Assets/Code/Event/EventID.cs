@@ -16,6 +16,8 @@ public enum EventID{
     EVENT_TOUCH_UP = 0x17002,//抬起
     EVENT_TOUCH_MOVE = 0x17003,//移动
     EVENT_TOUCH_SWEEP = 0x17004,//划动
+
+    EVENT_TOUCH_MAP = 0x17005,//点击地面
     //*******************************************************
 }
 

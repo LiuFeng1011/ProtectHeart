@@ -208,6 +208,9 @@ public class GameCommon  {
 		return Resources.Load(path);
 	}
 
+    public static float JumpFormula(float x,float w,float h){  
+        return -(x-w)*x*(h/Mathf.Pow((w/2),2));  
+    }  
 //	public static void WriteInGameEvent(List<InGameEvent> receiveEventList,DataStream writer){
 //		int evecount = receiveEventList.Count;
 //		writer.WriteSInt32(evecount);
