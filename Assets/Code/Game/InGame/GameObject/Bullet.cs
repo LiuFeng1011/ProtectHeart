@@ -35,5 +35,25 @@ public class Bullet : BaseObject {
         }
     }
 
+    public void Bomb(){
+        List<BaseObject> list = InGameManager.GetInstance().inGameObjectManager.GetObjList();
 
+        for (int i = 0; i < list.Count; i ++){
+            BaseObject obj = list[i];
+            if(obj.conf.type != (int)BaseObject.enObjType.enemy){
+                continue;
+            }
+            float dis = Vector3.Distance(transform.position, obj.transform.position);
+            if (dis < (transform.localScale.x + obj.transform.localScale.x) * 0.7f){
+                obj.Hurt(10);
+            }
+        }
+
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        Bomb();
+    }
 }

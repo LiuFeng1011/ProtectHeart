@@ -10,6 +10,8 @@ public class InGameManager : BaseUnityObject {
 
     public InGameObjectManager inGameObjectManager;
     public InGamePlayerManager inGamePlayerManager;
+    public InGameLevelManager inGameLevelManager;
+    public InGameMapManager inGameMapManager;
 
     GameTouchController gameTouchController;
     TouchManager touchManager;
@@ -25,22 +27,35 @@ public class InGameManager : BaseUnityObject {
         gameTouchController = new GameTouchController();
         touchManager = new TouchManager();
 
-
         inGameObjectManager = new InGameObjectManager();
         inGameObjectManager.Init();
         inGamePlayerManager = new InGamePlayerManager();
         inGamePlayerManager.Init();
+        inGameLevelManager = new InGameLevelManager();
+        inGameLevelManager.Init();
+        inGameMapManager = new InGameMapManager();
+        inGameMapManager.Init();
+
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        gameTouchController.Update();
-        inGameObjectManager.Update();
-        inGamePlayerManager.Update();
+        if(gameTouchController != null) gameTouchController.Update();
+        if (inGameObjectManager != null)inGameObjectManager.Update();
+        if (inGamePlayerManager != null)inGamePlayerManager.Update();
+        if (inGameLevelManager != null) inGameLevelManager.Update();
+        if (inGameMapManager != null) inGameMapManager.Update();
+
 	}
 
     private void OnDestroy()
     {
         instance = null;
+        if(touchManager != null)        touchManager.Destroy();
+        if (inGameObjectManager != null)inGameObjectManager.Destroy();
+        if (inGamePlayerManager != null)inGamePlayerManager.Destroy();
+        if (inGameLevelManager != null) inGameLevelManager.Destroy();
+        if (inGameMapManager != null) inGameMapManager.Destroy();
     }
 }

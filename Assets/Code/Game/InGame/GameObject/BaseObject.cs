@@ -19,6 +19,14 @@ public class BaseObject : BaseUnityObject {
 
         bullet_1 = 3001,
     }
+
+    public enum enObjType{
+        role = 1,//1角色
+        enemy = 2,//2敌人
+        bullet = 3,//3子弹
+        mapobj = 4//4装饰
+    }
+
     public enum enObjState
     {
         normal,
@@ -29,6 +37,8 @@ public class BaseObject : BaseUnityObject {
     public MapObjectConf conf{ get; private set; }
 
     public enObjState state;
+
+    public int life{ get; protected set; }
 
     public static BaseObject CreateObj(enObjId objid){
         MapObjectConf conf = ConfigManager.confMapObjectManager.dic[(int)objid];
@@ -46,9 +56,17 @@ public class BaseObject : BaseUnityObject {
 	
     public virtual void ObjInit(){
         state = enObjState.normal;
+        life = conf.life;
     }
     public virtual void ObjUpdate(){
         
+    }
+
+    public virtual void Hurt(int val){
+        life -= val;
+        if (life <= 0){
+            state = enObjState.die;
+        }
     }
 
     public virtual void Die(){

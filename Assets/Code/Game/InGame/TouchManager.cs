@@ -16,7 +16,7 @@ public class TouchManager : BaseGameObject {
                        EventID.EVENT_TOUCH_DOWN);
     }
 
-    public void Destroy()
+    public override void Destroy()
     {
         EventManager.Remove(this);
     }
@@ -50,4 +50,5 @@ public class TouchManager : BaseGameObject {
         }  
 
     }
+
 }

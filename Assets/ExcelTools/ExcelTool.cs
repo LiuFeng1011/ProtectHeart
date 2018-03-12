@@ -115,7 +115,7 @@ public class ExcelTool {
 			}
 			//o.toString();
 
-            Debug.Log(JsonMapper.ToJson(o));
+            //Debug.Log(JsonMapper.ToJson(o));
             dataList.Add(o);
 		}	
 

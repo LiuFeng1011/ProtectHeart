@@ -39,4 +39,9 @@ public class InGameObjectManager : BaseGameObject {
             obj.Die();
         }
     }
+
+    public List<BaseObject> GetObjList(){
+        return objlist;
+    }
+
 }

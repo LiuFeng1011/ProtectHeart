@@ -9,7 +9,8 @@ public class InitializeOnLoad : MonoBehaviour {
 	static void Initialize()
 	{
 		if (SceneManager.GetActiveScene().name == "Gate" ||
-            SceneManager.GetActiveScene().name == "TestScene")
+            SceneManager.GetActiveScene().name == "TestScene"||
+            SceneManager.GetActiveScene().name == "MapObj")
 		{
 			return;
 		}
