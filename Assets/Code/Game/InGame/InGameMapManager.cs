@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class InGameMapManager : BaseGameObject {
 
-    enum enMapSizeDataType
+public AnimationCurve anim; 
+    public enum enMapSizeDataType
     {
         up,
         down,
@@ -18,20 +19,20 @@ public class InGameMapManager : BaseGameObject {
     {
         base.Init();
 
-        GameObject mapObj = (GameObject)Resources.Load("Prefabs/MapObj/Map/Map1");
+        GameObject mapObj = (GameObject)Resources.Load("Prefabs/MapObj/Map/Map2");
 
         mapObj = MonoBehaviour.Instantiate(mapObj);
 
-        GameObject ground = new GameObject("ground");
-        for (int i = mapSize[(int)enMapSizeDataType.left]; i <= mapSize[(int)enMapSizeDataType.right]; i ++){
-            for (int j = mapSize[(int)enMapSizeDataType.down]; j < mapSize[(int)enMapSizeDataType.up]; j ++){
+        //GameObject ground = new GameObject("ground");
+        //for (int i = mapSize[(int)enMapSizeDataType.left]; i <= mapSize[(int)enMapSizeDataType.right]; i ++){
+        //    for (int j = mapSize[(int)enMapSizeDataType.down]; j < mapSize[(int)enMapSizeDataType.up]; j ++){
 
-                GameObject obj = (GameObject)Resources.Load("Prefabs/MapObj/Prefabs/Box_A" + Random.Range(1,4));
+        //        GameObject obj = (GameObject)Resources.Load("Prefabs/MapObj/Prefabs/Box_A" + Random.Range(1,4));
 
-                obj = MonoBehaviour.Instantiate(obj);
-                obj.transform.position = new Vector3(i, -1, j);
-                obj.transform.parent = ground.transform;
-            }
-        }
+        //        obj = MonoBehaviour.Instantiate(obj);
+        //        obj.transform.position = new Vector3(i, -1, j);
+        //        obj.transform.parent = ground.transform;
+        //    }
+        //}
     }
 }

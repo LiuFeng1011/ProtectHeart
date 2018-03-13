@@ -27,7 +27,7 @@ public class Bullet : BaseObject {
         moveTime += Time.deltaTime;
         float rate = moveTime / maxTime;
         Vector3 pos = startPos + (targetPos - startPos) * (rate);
-        pos.y = GameCommon.JumpFormula(distance * rate, distance, distance * 0.5f);
+        pos.y = GameCommon.JumpFormula(distance * rate, distance, distance * 0.3f);
         this.transform.position = pos;
 
         if(moveTime > maxTime){
