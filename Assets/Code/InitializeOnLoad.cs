@@ -14,6 +14,6 @@ public class InitializeOnLoad : MonoBehaviour {
 		{
 			return;
 		}
-        SceneManager.LoadScene("Gate");
+       SceneManager.LoadScene("Gate");
 	}
 }

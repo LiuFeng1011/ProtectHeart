@@ -34,6 +34,8 @@ public class BaseObject : BaseUnityObject {
         die
     }
 
+    protected Animator anim;
+
     public MapObjectConf conf{ get; private set; }
 
     public enObjState state;
@@ -57,6 +59,9 @@ public class BaseObject : BaseUnityObject {
     public virtual void ObjInit(){
         state = enObjState.normal;
         life = conf.life;
+
+        anim = this.GetComponent<Animator>();
+
     }
     public virtual void ObjUpdate(){
         
@@ -70,6 +75,16 @@ public class BaseObject : BaseUnityObject {
     }
 
     public virtual void Die(){
+        if(anim == null){
+            DelSelf();
+        }else{
+            anim.SetBool("isdeath",true);
+            Invoke("DelSelf",1f);
+        }
+
+    }
+
+    void DelSelf(){
         Destroy(gameObject);
     }
 }

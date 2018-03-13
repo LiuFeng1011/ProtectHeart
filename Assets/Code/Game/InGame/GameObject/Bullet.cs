@@ -9,6 +9,9 @@ public class Bullet : BaseObject {
     float speed;
     float moveTime = 0f;
     float maxTime;
+
+    GameObject flag;
+
     public void BulletInit(Vector3 startPos, Vector3 targetPos,float speed){
         this.targetPos = targetPos;
         this.startPos = startPos;
@@ -18,6 +21,13 @@ public class Bullet : BaseObject {
         maxTime = Vector3.Distance(targetPos, startPos) / speed;
 
         transform.position = startPos;
+        transform.forward = targetPos - startPos;
+        //flag
+
+        GameObject obj = (GameObject)Resources.Load("Prefabs/Other/BulletFlag");
+        flag = MonoBehaviour.Instantiate(obj);
+
+        flag.transform.position = targetPos;
     }
 
     public override void ObjUpdate()
@@ -33,6 +43,8 @@ public class Bullet : BaseObject {
         if(moveTime > maxTime){
             state = enObjState.die;
         }
+
+        transform.eulerAngles += new Vector3(10, 0, 0);
     }
 
     public void Bomb(){
@@ -55,5 +67,6 @@ public class Bullet : BaseObject {
     {
         base.Die();
         Bomb();
+        Destroy(flag);
     }
 }
