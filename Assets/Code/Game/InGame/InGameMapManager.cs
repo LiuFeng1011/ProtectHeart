@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class InGameMapManager : BaseGameObject {
 
-public AnimationCurve anim; 
     public enum enMapSizeDataType
     {
         up,

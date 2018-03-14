@@ -19,5 +19,8 @@ public enum EventID{
 
     EVENT_TOUCH_MAP = 0x17005,//点击地面
     //*******************************************************
+    EVENT_CREATE_EFFECT = 0x110001,//创建特效
+
+
 }
 

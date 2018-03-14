@@ -12,6 +12,8 @@ public class Bullet : BaseObject {
 
     GameObject flag;
 
+    float rotation = 0f;
+
     public void BulletInit(Vector3 startPos, Vector3 targetPos,float speed){
         this.targetPos = targetPos;
         this.startPos = startPos;
@@ -28,6 +30,8 @@ public class Bullet : BaseObject {
         flag = MonoBehaviour.Instantiate(obj);
 
         flag.transform.position = targetPos;
+
+        rotation = Random.Range(0, 360);
     }
 
     public override void ObjUpdate()
@@ -43,8 +47,8 @@ public class Bullet : BaseObject {
         if(moveTime > maxTime){
             state = enObjState.die;
         }
-
-        transform.eulerAngles += new Vector3(10, 0, 0);
+        rotation += 360 * Time.deltaTime;
+        transform.rotation = Quaternion.Euler(rotation, 0, 0);
     }
 
     public void Bomb(){
@@ -61,6 +65,7 @@ public class Bullet : BaseObject {
             }
         }
 
+        (new EventCreateEffect(60010010, null, transform.position, 1f)).Send();
     }
 
     public override void Die()

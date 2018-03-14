@@ -12,6 +12,7 @@ public class InGameManager : BaseUnityObject {
     public InGamePlayerManager inGamePlayerManager;
     public InGameLevelManager inGameLevelManager;
     public InGameMapManager inGameMapManager;
+    public GameEffectManager gameEffectManager;
 
     GameTouchController gameTouchController;
     TouchManager touchManager;
@@ -26,6 +27,8 @@ public class InGameManager : BaseUnityObject {
         
         gameTouchController = new GameTouchController();
         touchManager = new TouchManager();
+
+        gameEffectManager = new GameEffectManager();
 
         inGameObjectManager = new InGameObjectManager();
         inGameObjectManager.Init();
@@ -57,5 +60,6 @@ public class InGameManager : BaseUnityObject {
         if (inGamePlayerManager != null)inGamePlayerManager.Destroy();
         if (inGameLevelManager != null) inGameLevelManager.Destroy();
         if (inGameMapManager != null) inGameMapManager.Destroy();
+        if (gameEffectManager != null) gameEffectManager.Destroy();
     }
 }
