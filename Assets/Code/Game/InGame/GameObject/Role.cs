@@ -30,7 +30,6 @@ public class Role : BaseObject {
     }
 
     void Fire(Vector3 targetPos){
-        Debug.Log(" fire : " + targetPos.ToString());
         Bullet b = (Bullet)InGameManager.GetInstance().inGameObjectManager.AddObj(BaseObject.enObjId.bullet_1);
         b.BulletInit(transform.position,targetPos,5);
     }

@@ -45,7 +45,6 @@ public class BaseObject : BaseUnityObject {
     public static BaseObject CreateObj(enObjId objid){
         MapObjectConf conf = ConfigManager.confMapObjectManager.dic[(int)objid];
         if (conf == null) return null;
-        Debug.Log(conf.prefabName);
         GameObject obj = (GameObject)Resources.Load(conf.prefabName);
 
         obj = MonoBehaviour.Instantiate(obj);
