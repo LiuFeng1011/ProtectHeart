@@ -208,89 +208,21 @@ public class GameCommon  {
 		return Resources.Load(path);
 	}
 
-    public static float JumpFormula(float x,float w,float h){  
-        return -(x-w)*x*(h/Mathf.Pow((w/2),2));  
+
+    //抛物线
+    static float GetJumpFormulaW(float baseh, float h, float x){
+        float m = (2 * h * x) / baseh;
+        return Mathf.Sqrt(m * (2 * x + m)) - m;
+    }
+    public static float JumpFormula(float x, float w, float h, float baseh){
+        if(baseh != 0){
+            w = GetJumpFormulaW(baseh,h,w);
+        }
+
+        return -(x-w) * x * (h/Mathf.Pow((w/2),2)) + baseh;  
     }  
-//	public static void WriteInGameEvent(List<InGameEvent> receiveEventList,DataStream writer){
-//		int evecount = receiveEventList.Count;
-//		writer.WriteSInt32(evecount);
-//		
-//		for(int i = 0 ; i < evecount ; i ++){
-//			InGameEvent eve = receiveEventList[i];
-//
-//			writer.WriteSInt32((int)eve.mytype);
-//			
-//			FieldInfo[] fields = eve.GetType().GetFields();
-//			foreach (FieldInfo field in fields){
-//				if(field.Name == "mytype"){
-//					continue;
-//				}
-//				if(field.FieldType == typeof(int)){
-//					int val = (int)field.GetValue(eve);
-//					writer.WriteSInt32(val);
-//				}else if(field.FieldType == typeof(float)){
-//					float val = (float)field.GetValue(eve);
-//					writer.WriteSInt32((int)(val*1000));
-//				}else if(field.FieldType == typeof(bool)){
-//					bool val = (bool)field.GetValue(eve);
-//					writer.WriteSInt32(val?1:0);
-//				}else if(field.FieldType == typeof(Vector2)){
-//					Vector2 val = (Vector2)field.GetValue(eve);
-//					writer.WriteSInt32((int)(val.x*1000));
-//					writer.WriteSInt32((int)(val.y*1000));
-//				}else if(field.FieldType == typeof(KeyCode)){
-//					KeyCode val = (KeyCode)field.GetValue(eve);
-//					writer.WriteSInt32((int)(val));
-//				}else if(field.FieldType == typeof(string)){
-//					string val = (string)field.GetValue(eve);
-//					writer.WriteString16(val);
-//				}
-//			}
-//		}
-//	}
-//	
-//	public static void ReadInGameEvent(List<InGameEvent> receiveEventList,DataStream reader){
-//		int evecount = reader.ReadSInt32();
-//		
-//		for(int i = 0 ; i < evecount ; i ++){
-//			InGameEventType type = (InGameEventType)reader.ReadSInt32();
-//
-//			InGameEvent eve = InGameEvent.CreateEveByType(type);
-//			
-//			FieldInfo[] fields = eve.GetType().GetFields();
-//
-//			foreach (FieldInfo field in fields){
-//				if(field.Name == "mytype"){
-//					continue;
-//				}
-//				if(field.FieldType == typeof(int)){
-//					int val = reader.ReadSInt32();
-//					field.SetValue(eve,val);
-//				}else if(field.FieldType == typeof(float)){
-//					int val = reader.ReadSInt32();
-//					float floatval = (float)val / 1000f;
-//					field.SetValue(eve,floatval);
-//				}else if(field.FieldType == typeof(bool)){
-//					int val = reader.ReadSInt32();
-//					field.SetValue(eve,val == 1);
-//				}else if(field.FieldType == typeof(Vector2)){
-//					Vector2 val = new Vector2(
-//						(float)reader.ReadSInt32() / 1000f,
-//						(float)reader.ReadSInt32() / 1000f);
-//					
-//					field.SetValue(eve,val);
-//				}else if(field.FieldType == typeof(KeyCode)){
-//					int val = reader.ReadSInt32();
-//					field.SetValue(eve,(KeyCode)val);
-//				}else if(field.FieldType == typeof(string)){
-//					string val = reader.ReadString16();
-//					field.SetValue(eve,val);
-//				}
-//			}
-//
-//			receiveEventList.Add(eve);
-//		}
-//	}
+
+
 }
 
 public class GameItem{

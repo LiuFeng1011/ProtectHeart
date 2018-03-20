@@ -3,17 +3,68 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Role : BaseObject {
+    
+    List<Bullet> bulletList ;
+    Bullet readyBullet = null;
 
+    float addBulletTime = 0f, addBulletMaxTime = 0.8f, setReadyBulletTime = 0f, setReadyBulletMaxTime = 0.2f;
+
+    int maxBulletCount = 5;
 	// Use this for initialization
 	void Start () {
         EventManager.Register(this,EventID.EVENT_TOUCH_MAP);
 
+        bulletList = new List<Bullet>(maxBulletCount);
+
+        AddBullet(maxBulletCount);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    public override void ObjUpdate()
+    {
+        base.ObjUpdate();
+
+        if (bulletList == null) return;
+
+        setReadyBulletTime -= Time.deltaTime;
+        if(setReadyBulletTime <= 0 && readyBullet == null  && bulletList.Count > 0){
+            SetReadyBullet();
+        }
+
+        addBulletTime -= Time.deltaTime;
+        if (addBulletTime > 0) return;
+        addBulletTime = addBulletMaxTime;
+
+        if(bulletList.Count < maxBulletCount){
+            AddBullet(1);
+        }
+    }
+
+    void SetReadyBullet(){
+
+        readyBullet = bulletList[bulletList.Count - 1];
+        bulletList.RemoveAt(bulletList.Count - 1);
+        readyBullet.transform.position = transform.position;
+    }
+
+    void AddBullet(int count){
+        for (int i = 0; i < count; i ++){
+            Bullet b = (Bullet)InGameManager.GetInstance().inGameObjectManager.AddObj(BaseObject.enObjId.bullet_1);
+            bulletList.Add(b);
+            b.transform.position = transform.position + new Vector3(0, (bulletList.Count - 1 )* b.transform.localScale.y, -transform.localScale.z);
+            b.transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+        }
+    }
+
+    void Fire(Vector3 targetPos){
+        if(readyBullet == null){
+            return;
+        }
+        readyBullet.BulletInit(transform.position,targetPos,5);
+        readyBullet = null;
+        setReadyBulletTime = setReadyBulletMaxTime;
+    }
+
     public override void HandleEvent(EventData resp)
     {
         switch (resp.eid)
@@ -29,8 +80,4 @@ public class Role : BaseObject {
         EventManager.Remove(this);
     }
 
-    void Fire(Vector3 targetPos){
-        Bullet b = (Bullet)InGameManager.GetInstance().inGameObjectManager.AddObj(BaseObject.enObjId.bullet_1);
-        b.BulletInit(transform.position,targetPos,5);
-    }
 }

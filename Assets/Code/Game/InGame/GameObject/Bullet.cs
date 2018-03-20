@@ -14,6 +14,8 @@ public class Bullet : BaseObject {
 
     float rotation = 0f;
 
+    bool isStart = false;
+
     public void BulletInit(Vector3 startPos, Vector3 targetPos,float speed){
         this.targetPos = targetPos;
         this.startPos = startPos;
@@ -32,20 +34,24 @@ public class Bullet : BaseObject {
         flag.transform.position = targetPos;
 
         rotation = Random.Range(0, 360);
+
+        isStart = true;
     }
 
     public override void ObjUpdate()
     {
         base.ObjUpdate();
+        if (!isStart) return;
 
         moveTime += Time.deltaTime;
         float rate = moveTime / maxTime;
         Vector3 pos = startPos + (targetPos - startPos) * (rate);
-        pos.y = GameCommon.JumpFormula(distance * rate, distance, distance * 0.3f);
+        pos.y = GameCommon.JumpFormula(distance * rate, distance, distance * 0.3f, startPos.y);
         this.transform.position = pos;
 
         if(moveTime > maxTime){
             state = enObjState.die;
+            Bomb();
         }
         rotation += 360 * Time.deltaTime;
         transform.rotation = Quaternion.Euler(rotation, 0, 0);
@@ -71,7 +77,6 @@ public class Bullet : BaseObject {
     public override void Die()
     {
         base.Die();
-        Bomb();
         Destroy(flag);
     }
 }
