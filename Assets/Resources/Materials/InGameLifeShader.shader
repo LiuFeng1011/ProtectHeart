@@ -85,7 +85,8 @@ Shader "Custom/InGameLifeShader" {
             #include "AutoLight.cginc"
  
             #include "UnityPBSLighting.cginc"
-
+            //指令可以保证我们在shader中使用光照衰减等光照变量可以被正确赋值。
+            #pragma multi_compile_fwdbase
             #pragma vertex vert      
             #pragma fragment frag2 
             fixed4 frag2(v2f i) : SV_Target {  
@@ -98,10 +99,11 @@ Shader "Custom/InGameLifeShader" {
                 }
                 fixed4 color = lerp(tex2D(_MainTex,i.uv),c,0.4) ;
 
-                UNITY_LIGHT_ATTENUATION(attenuation, 0, i.worldPos);
+                //UNITY_LIGHT_ATTENUATION(attenuation, 0, i.worldPos);
+                float dis = length(_WorldSpaceLightPos0.xyz -i.worldPos);  
+                float attenuation = 1.0 / dis;
 
-
-                return color * attenuation;    
+                return color * (attenuation + 0.5);    
             }      
 
             ENDCG   
