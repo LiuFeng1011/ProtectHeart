@@ -71,7 +71,7 @@ public class Bullet : BaseObject {
             }
         }
 
-        (new EventCreateEffect(60010010, null, transform.position, 1f)).Send();
+        (new EventCreateEffect(conf.dieeffect, null, transform.position, 1f)).Send();
     }
 
     public override void Die()

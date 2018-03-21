@@ -66,3 +66,14 @@ public class EventCreateEffect : EventData
         this.scale = scale;
     }
 }
+
+public class EventInGameChangeLife : EventData
+{
+    public int nowlife;
+    public float rate;
+    public EventInGameChangeLife(int nowlife,float rate) : base(EventID.EVENT_INGAME_CHANGE_LIFE)
+    {
+        this.nowlife = nowlife;
+        this.rate = rate;
+    }
+}

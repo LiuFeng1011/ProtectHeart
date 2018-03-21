@@ -24,7 +24,7 @@ public class Enemy : BaseObject {
         transform.rotation = Quaternion.Euler((pos.y - 0.1f)*90, 0, 0);
         transform.localScale = baseScale + new Vector3(0,pos.y - 0.3f,0);
 
-        if(transform.position.z < 0){
+        if(transform.position.z < InGameManager.GetInstance().inGameMapManager.wallZ + transform.localScale.x / 2){
             state = enObjState.die;
             InGameManager.GetInstance().inGamePlayerManager.Hurt(1);
         }
@@ -37,6 +37,7 @@ public class Enemy : BaseObject {
 
     public override void Die()
     {
+        (new EventCreateEffect(conf.dieeffect, null, transform.position, 1f)).Send();
         base.Die();
     }
 }

@@ -21,6 +21,7 @@ public enum EventID{
     //*******************************************************
     EVENT_CREATE_EFFECT = 0x110001,//创建特效
 
+    EVENT_INGAME_CHANGE_LIFE = 0x120001,//生命值改变
 
 }
 

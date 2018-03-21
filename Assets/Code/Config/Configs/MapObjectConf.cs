@@ -15,8 +15,9 @@ public class MapObjectConf
     3子弹
     4装饰" 
     */
-    public float speed;/*  移动速度    */
-    public int life;/* 生命 */
+    public float speed; /*  移动速度    */
+    public int life;    /* 生命 */
+    public int dieeffect;    /*  死亡特效    */
 }
 
 
