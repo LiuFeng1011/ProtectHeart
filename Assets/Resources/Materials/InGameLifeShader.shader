@@ -1,4 +1,8 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+﻿// Upgrade NOTE: replaced '_LightMatrix0' with 'unity_WorldToLight'
+
+// Upgrade NOTE: replaced '_LightMatrix0' with 'unity_WorldToLight'
+
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 Shader "Custom/InGameLifeShader" {
 	Properties {
@@ -10,7 +14,8 @@ Shader "Custom/InGameLifeShader" {
         _ParentWidth ("Parent Width", Float) = 0.0
 	}
 
-    CGINCLUDE  
+    CGINCLUDE 
+
         #include "Lighting.cginc"  
         #include "unitycg.cginc"   
 
@@ -34,7 +39,7 @@ Shader "Custom/InGameLifeShader" {
             float4 vertex : SV_POSITION;
             float3 worldPos : TEXCOORD0;   
             float2 uv : TEXCOORD1;    
-            float lightdir : TEXCOORD2;
+            float lightdir : TEXCOORD2; 
         };
 
         v2f vert (appdata v)
@@ -76,34 +81,34 @@ Shader "Custom/InGameLifeShader" {
             #pragma vertex vert      
             #pragma fragment frag  
             ENDCG   
-        }    
+        }  
+         
         Pass{    
             Tags { "RenderType"="Opaque"  "LightMode" = "ForwardAdd"}
-            Blend One Zero
+            Blend One One
+ 
+            ZWrite Off
             LOD 200  
             CGPROGRAM  
-            #include "AutoLight.cginc"
- 
+
+            #define POINT
+        
+            #include "Autolight.cginc" 
             #include "UnityPBSLighting.cginc"
-            //指令可以保证我们在shader中使用光照衰减等光照变量可以被正确赋值。
-            #pragma multi_compile_fwdbase
             #pragma vertex vert      
-            #pragma fragment frag2 
+            #pragma fragment frag2
             fixed4 frag2(v2f i) : SV_Target {  
                 float3 wpos = mul(unity_ObjectToWorld, i.vertex).xyz;
 
-                  
                 fixed4 c = _WhiteColor ;  
                 if(i.worldPos.x - _ParentX -  _ParentWidth / 2 > -_LifeRate * _ParentWidth){
                     c = _RedColor;  
                 }
                 fixed4 color = lerp(tex2D(_MainTex,i.uv),c,0.4) ;
 
-                //UNITY_LIGHT_ATTENUATION(attenuation, 0, i.worldPos);
-                float dis = length(_WorldSpaceLightPos0.xyz -i.worldPos);  
-                float attenuation = 1.0 / dis;
+                UNITY_LIGHT_ATTENUATION(attenuation, 0, i.worldPos);
 
-                return color * (attenuation + 0.5);    
+                return color * (attenuation);
             }      
 
             ENDCG   

@@ -49,6 +49,7 @@ public class Bullet : BaseObject {
         pos.y = GameCommon.JumpFormula(distance * rate, distance, distance * 0.3f, startPos.y);
         this.transform.position = pos;
 
+
         if(moveTime > maxTime){
             state = enObjState.die;
             Bomb();
