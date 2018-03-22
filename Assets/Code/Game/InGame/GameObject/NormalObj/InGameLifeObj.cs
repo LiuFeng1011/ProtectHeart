@@ -34,7 +34,7 @@ public class InGameLifeObj : BaseUnityObject {
         }
 
         if(nowval != targetval){
-            nowval += (targetval - nowval) * 0.7f;
+            nowval += (targetval - nowval) * 0.3f;
             if (nowval - targetval < 0.01f){
                 nowval = targetval;
             }
