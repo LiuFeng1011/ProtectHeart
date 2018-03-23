@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InGameManager : BaseUnityObject {
+
     static InGameManager instance;
     public static InGameManager GetInstance(){
         return instance;

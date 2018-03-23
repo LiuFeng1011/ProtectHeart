@@ -18,13 +18,19 @@ public class BaseObject : BaseUnityObject {
         enemy_6 = 2006,
 
         bullet_1 = 3001,
+
+        heart = 5001,
+        fastforward = 5002,
+        addbullet = 5003,
+        clearenemy = 5004,
     }
 
     public enum enObjType{
         role = 1,//1角色
         enemy = 2,//2敌人
         bullet = 3,//3子弹
-        mapobj = 4//4装饰
+        mapobj = 4,//4装饰
+        item = 5//5道具
     }
 
     public enum enObjState
@@ -42,9 +48,13 @@ public class BaseObject : BaseUnityObject {
 
     public int life{ get; protected set; }
 
+    public List<enObjId> itemList;
+
     public static BaseObject CreateObj(enObjId objid){
         MapObjectConf conf = ConfigManager.confMapObjectManager.dic[(int)objid];
-        if (conf == null) return null;
+        if (conf == null) {
+            return null;
+        }
         GameObject obj = (GameObject)Resources.Load(conf.prefabName);
 
         obj = MonoBehaviour.Instantiate(obj);
@@ -66,21 +76,37 @@ public class BaseObject : BaseUnityObject {
         
     }
 
+    public void AddItem(enObjId objid){
+        if(itemList == null) {
+            itemList = new List<enObjId>();
+        }
+        itemList.Add(objid);
+    }
+
     public virtual void Hurt(int val){
         life -= val;
         if (life <= 0){
             state = enObjState.die;
+
+            if (itemList != null)
+            {
+                for (int i = 0; i < itemList.Count; i++)
+                {
+                    BaseObject obj = InGameManager.GetInstance().inGameObjectManager.AddObj(itemList[i]);
+                    obj.transform.position = transform.position;
+                }
+            }
         }
     }
 
-    public virtual void Die(){
+    public virtual void Die(BaseObject source){
+        
         if(anim == null){
             DelSelf();
         }else{
             anim.SetBool("isdeath",true);
             Invoke("DelSelf",1f);
         }
-
     }
 
     void DelSelf(){

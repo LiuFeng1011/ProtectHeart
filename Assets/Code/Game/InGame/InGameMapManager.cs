@@ -29,7 +29,7 @@ public class InGameMapManager : BaseGameObject {
         mapObj = MonoBehaviour.Instantiate(mapObj);
 
         //life obj
-        GameObject lifeobj = (GameObject)Resources.Load("Prefabs/MapObj/Wall/wall_1");
+        GameObject lifeobj = (GameObject)Resources.Load("Prefabs/MapObj/Wall/wall_2");
 
         lifeobj = MonoBehaviour.Instantiate(lifeobj);
 

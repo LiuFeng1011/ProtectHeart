@@ -7,7 +7,7 @@ public class Role : BaseObject {
     List<Bullet> bulletList ;
     Bullet readyBullet = null;
 
-    float addBulletTime = 0f, addBulletMaxTime = 0.8f, setReadyBulletTime = 0f, setReadyBulletMaxTime = 0.2f;
+    float addBulletTime = 0f, addBulletMaxTime = 1f, setReadyBulletTime = 0f, setReadyBulletMaxTime = 0.2f;
 
     int maxBulletCount = 5;
 	// Use this for initialization
@@ -31,13 +31,11 @@ public class Role : BaseObject {
             SetReadyBullet();
         }
 
+        if (bulletList.Count >= maxBulletCount) return;
         addBulletTime -= Time.deltaTime;
         if (addBulletTime > 0) return;
         addBulletTime = addBulletMaxTime;
-
-        if(bulletList.Count < maxBulletCount){
-            AddBullet(1);
-        }
+        AddBullet(1);
     }
 
     void SetReadyBullet(){

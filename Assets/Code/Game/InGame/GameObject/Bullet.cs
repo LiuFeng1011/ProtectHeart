@@ -63,7 +63,7 @@ public class Bullet : BaseObject {
 
         for (int i = 0; i < list.Count; i ++){
             BaseObject obj = list[i];
-            if(obj.conf.type != (int)BaseObject.enObjType.enemy){
+            if(obj.conf.type != (int)BaseObject.enObjType.enemy && obj.conf.type != (int)BaseObject.enObjType.item){
                 continue;
             }
             float dis = Vector3.Distance(transform.position, obj.transform.position);

@@ -25,6 +25,10 @@ public class ConfMapObjectManager{
     public List<MapObjectConf> datas {get;private set;}
     public Dictionary<int, MapObjectConf> dic = new Dictionary<int, MapObjectConf>();
 
+    //key : obj type 
+    //val : obj
+    public Dictionary<int, List<MapObjectConf>> dicByType = new Dictionary<int, List<MapObjectConf>>();
+
 	public void Load(){
 
 		if(datas != null) datas.Clear();
@@ -34,9 +38,24 @@ public class ConfMapObjectManager{
 
         for (int i = 0; i < datas.Count; i++)
         {
-            dic.Add(datas[i].objid, datas[i]);
+            MapObjectConf obj = datas[i];
+            dic.Add(obj.objid, obj);
+            if(!dicByType.ContainsKey(obj.type)){
+                List<MapObjectConf> typelist = new List<MapObjectConf>();
+                typelist.Add(obj);
+                dicByType.Add(obj.type,typelist);
+            }else{
+                dicByType[obj.type].Add(obj);
+            }
         }
 	}
 
+    public MapObjectConf GetRandomObjByType(int type){
+        List<MapObjectConf> list ;
+        if(!dicByType.TryGetValue(type,out list)){
+            return null;
+        } 
+        return list[(int)UnityEngine.Random.Range(0, list.Count - 1)];
+    }
 
 }

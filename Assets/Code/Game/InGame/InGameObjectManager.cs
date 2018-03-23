@@ -6,11 +6,12 @@ public class InGameObjectManager : BaseGameObject {
 
     List<BaseObject> objlist = new List<BaseObject>();
     List<BaseObject> delobjlist = new List<BaseObject>();
+    List<BaseObject> addobjlist = new List<BaseObject>();
 
     public BaseObject AddObj(BaseObject.enObjId objid){
         BaseObject obj = BaseObject.CreateObj(objid);
         if (obj == null) return null;
-        objlist.Add(obj);
+        addobjlist.Add(obj);
 
         return obj;
     }
@@ -37,6 +38,11 @@ public class InGameObjectManager : BaseGameObject {
             objlist.Remove(delobjlist[0]);
             delobjlist.RemoveAt(0);
             obj.Die();
+        }
+
+        if(addobjlist.Count > 0){
+            objlist.AddRange(addobjlist); 
+            addobjlist.Clear();
         }
     }
 

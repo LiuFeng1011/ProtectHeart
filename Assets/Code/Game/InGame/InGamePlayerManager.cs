@@ -28,4 +28,9 @@ public class InGamePlayerManager : BaseGameObject
             
         }
     }
+
+    public void AddLife(int val){
+        life = Mathf.Min(life + val, maxLife);
+        (new EventInGameChangeLife(life, (float)life / (float)maxLife)).Send();
+    }
 }
