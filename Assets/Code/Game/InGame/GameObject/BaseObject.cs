@@ -99,7 +99,7 @@ public class BaseObject : BaseUnityObject {
         }
     }
 
-    public virtual void Die(BaseObject source){
+    public virtual void Die(){
         
         if(anim == null){
             DelSelf();

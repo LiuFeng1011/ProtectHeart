@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class InGameBaseBuff : BaseGameObject {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    BaseObject obj;
+
+    float lifeTime;
+
+    public void BuffInit()
+    {
+        
+    }
+
 }
