@@ -7,14 +7,26 @@ public class InGamePlayerManager : BaseGameObject
     int maxLife = 10;
     public int life { get;private set;}
 
+    InGamePlayerBuffManager inGamePlayerBuffManager = new InGamePlayerBuffManager();
+
+    Role role;
+
+    float bulletSpeed;
+    int maxBulletCount;
 	// Use this for initialization
     public override void Init () {
-        BaseObject obj = InGameManager.GetInstance().inGameObjectManager.AddObj(BaseObject.enObjId.role_1);
-        obj.transform.position = new Vector3(0, 0, 1f);
+        role = InGameManager.GetInstance().inGameObjectManager.AddObj(BaseObject.enObjId.role_1) as Role;
+        role.transform.position = new Vector3(0, 0, 1f);
 
 
         life = maxLife;
+        maxBulletCount = 5;
+        bulletSpeed = 5;
 	}
+
+    public override void Update(){
+        inGamePlayerBuffManager.Update();
+    }
 	
     public void Hurt(int val){
         if(life <= 0){
@@ -32,5 +44,25 @@ public class InGamePlayerManager : BaseGameObject
     public void AddLife(int val){
         life = Mathf.Min(life + val, maxLife);
         (new EventInGameChangeLife(life, (float)life / (float)maxLife)).Send();
+    }
+
+    public void AddBuff(InGameBaseBuff buff){
+        inGamePlayerBuffManager.AddBuff(buff);
+    }
+
+    public void ChangeBulletSpeed(float val){
+        bulletSpeed += val;
+    }
+    public float GetBulletSpeed(){
+        return bulletSpeed;
+    }
+
+    public void ChangeBulletMaxCount(int val)
+    {
+        maxBulletCount += val;
+    }
+    public int GetBulletMaxCount()
+    {
+        return maxBulletCount;
     }
 }

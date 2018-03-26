@@ -31,7 +31,7 @@ public class InGameLevelManager : BaseGameObject {
 
         if(addItemTime < 0){
             obj.AddItem((BaseObject.enObjId)ConfigManager.confMapObjectManager.GetRandomObjByType((int)BaseObject.enObjType.item).objid);
-            addItemTime = Random.Range(1f, 4f);
+            addItemTime = Random.Range(5f, 15f);
         }
 
     }

@@ -55,7 +55,7 @@ public class ConfMapObjectManager{
         if(!dicByType.TryGetValue(type,out list)){
             return null;
         } 
-        return list[(int)UnityEngine.Random.Range(0, list.Count - 1)];
+        return list[(int)UnityEngine.Random.Range(0, list.Count)];
     }
 
 }

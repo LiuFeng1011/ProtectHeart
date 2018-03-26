@@ -93,7 +93,7 @@ public class BaseObject : BaseUnityObject {
                 for (int i = 0; i < itemList.Count; i++)
                 {
                     BaseObject obj = InGameManager.GetInstance().inGameObjectManager.AddObj(itemList[i]);
-                    obj.transform.position = transform.position;
+                    obj.transform.position = transform.position ;
                 }
             }
         }
@@ -109,7 +109,7 @@ public class BaseObject : BaseUnityObject {
         }
     }
 
-    void DelSelf(){
+    public virtual void DelSelf(){
         Destroy(gameObject);
     }
 }

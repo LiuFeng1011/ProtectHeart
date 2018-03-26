@@ -9,14 +9,13 @@ public class Role : BaseObject {
 
     float addBulletTime = 0f, addBulletMaxTime = 1f, setReadyBulletTime = 0f, setReadyBulletMaxTime = 0.2f;
 
-    int maxBulletCount = 5;
 	// Use this for initialization
 	void Start () {
         EventManager.Register(this,EventID.EVENT_TOUCH_MAP);
 
-        bulletList = new List<Bullet>(maxBulletCount);
+        bulletList = new List<Bullet>();
 
-        AddBullet(maxBulletCount);
+        AddBullet(InGameManager.GetInstance().inGamePlayerManager.GetBulletMaxCount());
 	}
 
     // Update is called once per frame
@@ -31,7 +30,7 @@ public class Role : BaseObject {
             SetReadyBullet();
         }
 
-        if (bulletList.Count >= maxBulletCount) return;
+        if (bulletList.Count >= InGameManager.GetInstance().inGamePlayerManager.GetBulletMaxCount()) return;
         addBulletTime -= Time.deltaTime;
         if (addBulletTime > 0) return;
         addBulletTime = addBulletMaxTime;
@@ -58,7 +57,7 @@ public class Role : BaseObject {
         if(readyBullet == null){
             return;
         }
-        readyBullet.BulletInit(transform.position,targetPos,5);
+        readyBullet.BulletInit(transform.position,targetPos,InGameManager.GetInstance().inGamePlayerManager.GetBulletSpeed());
         readyBullet = null;
         setReadyBulletTime = setReadyBulletMaxTime;
     }

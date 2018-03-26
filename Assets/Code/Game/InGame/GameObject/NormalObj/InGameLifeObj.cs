@@ -35,7 +35,7 @@ public class InGameLifeObj : BaseUnityObject {
 
         if(nowval != targetval){
             nowval += (targetval - nowval) * 0.3f;
-            if (nowval - targetval < 0.01f){
+            if (Mathf.Abs(nowval - targetval) < 0.01f){
                 nowval = targetval;
             }
         }else{
@@ -46,8 +46,8 @@ public class InGameLifeObj : BaseUnityObject {
 	}
 
     public void SetVal(float val){
+        if(targetval > val) shakeTime = 1f;
         targetval = val;
-        shakeTime = 1f;
     }
     public override void HandleEvent(EventData resp)
     {
