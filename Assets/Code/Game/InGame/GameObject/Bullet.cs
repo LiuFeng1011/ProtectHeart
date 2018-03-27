@@ -35,6 +35,8 @@ public class Bullet : BaseObject {
 
         rotation = Random.Range(0, 360);
 
+        //60010012
+        (new EventCreateEffect(60010012, gameObject, transform.position, 1f)).Send();
         isStart = true;
     }
 

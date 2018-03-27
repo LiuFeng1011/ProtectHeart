@@ -28,7 +28,8 @@ public class InGameLevelManager : BaseGameObject {
 
         BaseObject obj = InGameManager.GetInstance().inGameObjectManager.AddObj(BaseObject.enObjId.enemy_1);
         obj.transform.position = new Vector3(-3f + Random.Range(0, 6f), 0, 13);
-
+        //60010013
+        (new EventCreateEffect(60010013, null, obj.transform.position, 0.8f)).Send();
         if(addItemTime < 0){
             obj.AddItem((BaseObject.enObjId)ConfigManager.confMapObjectManager.GetRandomObjByType((int)BaseObject.enObjType.item).objid);
             addItemTime = Random.Range(5f, 15f);
