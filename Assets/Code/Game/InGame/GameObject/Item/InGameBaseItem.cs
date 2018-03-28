@@ -11,6 +11,10 @@ public class InGameBaseItem : BaseObject {
     private void Start()
     {
         rotation = 0;
+
+        //特效 60010017
+
+        (new EventCreateEffect(60010017, gameObject, transform.position, 0.85f)).Send();
     }
 
     public override void ObjUpdate()
@@ -24,7 +28,7 @@ public class InGameBaseItem : BaseObject {
             state = enObjState.die;
         }
 
-        rotation += 360 * Time.deltaTime;
+        rotation += 360 * Time.deltaTime * 0.5f;
         transform.rotation = Quaternion.Euler( 0, rotation, 0);
     }
 

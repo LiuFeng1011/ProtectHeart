@@ -11,6 +11,7 @@ public class ComboAction : BaseUnityObject {
     public float maxScale = 1f;
 	// Use this for initialization
 	void Start () {
+        transform.localScale = new Vector3(0, 0, 0);
 	}
 	
 	// Update is called once per frame

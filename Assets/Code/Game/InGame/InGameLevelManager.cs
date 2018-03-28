@@ -33,6 +33,9 @@ public class InGameLevelManager : BaseGameObject {
         if(addItemTime < 0){
             obj.AddItem((BaseObject.enObjId)ConfigManager.confMapObjectManager.GetRandomObjByType((int)BaseObject.enObjType.item).objid);
             addItemTime = Random.Range(5f, 15f);
+
+            //特效 60010016
+            (new EventCreateEffect(60010016, obj.gameObject, obj.transform.position, -1f)).Send();
         }
 
     }

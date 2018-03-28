@@ -32,7 +32,7 @@ public class Bullet : BaseObject {
         flag = MonoBehaviour.Instantiate(obj);
 
         flag.transform.position = targetPos;
-
+        flag.transform.localScale = transform.localScale;
         rotation = Random.Range(0, 360);
 
         //60010012

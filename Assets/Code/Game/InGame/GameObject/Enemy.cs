@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enemy : BaseObject {
     const float jumphigh = 0.5f;
-    public float speed = 0;
-    Vector3 baseScale;
+    public float speed = 0, showTime = 0, maxShowTime = 0.2f;
+    Vector3 baseScale,nowScale;
 
     GameObject model;
     public override void ObjInit()
@@ -14,21 +14,34 @@ public class Enemy : BaseObject {
         speed = Random.Range(0f, 1f) - 0.5f;
         baseScale = transform.localScale;
 
+        nowScale = Vector3.zero;
+        transform.localScale = nowScale;
+
         model = transform.GetChild(0).gameObject;
     }
 
     public override void ObjUpdate()
     {
         if (state == enObjState.die) return;
+
+        if(showTime < maxShowTime){
+            showTime = Mathf.Min(showTime + Time.deltaTime,maxShowTime);
+            nowScale = baseScale * (showTime / maxShowTime);
+            transform.localScale = nowScale;
+            return;
+        }
+
+
         Vector3 pos = transform.position - new Vector3(0,0, GetSpeed() * Time.deltaTime);
         //pos.y = transform.localScale.y / 2;
         transform.position = pos;
-            
+
+
         if(model != null){
             float y = Mathf.Abs(Mathf.Sin(transform.position.z * 3)) * jumphigh;
             model.transform.localPosition = new Vector3( 0,transform.localScale.y / 2 +  y, 0);
             model.transform.rotation = Quaternion.Euler((y - jumphigh / 2f) * 90, 0, 0);
-            transform.localScale = baseScale +  new Vector3(0, y - 0.3f, 0);
+            transform.localScale = nowScale +  new Vector3(0, y - 0.3f, 0);
         }
 
         if(transform.position.z < InGameManager.GetInstance().inGameMapManager.wallZ + transform.localScale.x / 2){

@@ -28,6 +28,9 @@ public class GameEffect : MonoBehaviour {
 	}
 
     public void SetScale(Transform t, float scale){
+        if (scale == -1f){
+            return;
+        }
         for (int i = 0; i < t.childCount; i ++){
             SetScale(t.GetChild(i),scale);
         }

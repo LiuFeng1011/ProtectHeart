@@ -21,6 +21,10 @@ public class InGameItemClearEnemy : InGameBaseItem {
                 obj.Hurt(999);
             }
 
+
+            //特效 60010015
+
+            (new EventCreateEffect(60010015, null, transform.position, -1f)).Send();
         }
     }
 }

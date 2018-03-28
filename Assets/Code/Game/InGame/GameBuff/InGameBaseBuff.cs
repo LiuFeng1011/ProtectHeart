@@ -44,7 +44,7 @@ public class InGameBaseBuff : BaseGameObject {
         base.Update();
         lifeTime -= Time.deltaTime;
 
-        obj.transform.position =obj.transform.position + (targetPos - obj.transform.position) * 0.5f;
+        obj.transform.position =obj.transform.position + (targetPos - obj.transform.position) * 0.3f;
     }
 
     public bool IsOver(){
