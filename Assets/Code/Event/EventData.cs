@@ -77,3 +77,12 @@ public class EventInGameChangeLife : EventData
         this.rate = rate;
     }
 }
+
+public class EventInGameChangeScores : EventData
+{
+    public int val;
+    public EventInGameChangeScores(int val) : base(EventID.EVENT_INGAME_CHANGE_SCORES)
+    {
+        this.val = val;
+    }
+}

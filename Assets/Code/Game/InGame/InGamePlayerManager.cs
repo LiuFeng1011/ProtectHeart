@@ -13,6 +13,9 @@ public class InGamePlayerManager : BaseGameObject
 
     float bulletSpeed;
     int maxBulletCount;
+
+    int scores,combo;
+
 	// Use this for initialization
     public override void Init () {
         role = InGameManager.GetInstance().inGameObjectManager.AddObj(BaseObject.enObjId.role_1) as Role;
@@ -44,6 +47,20 @@ public class InGamePlayerManager : BaseGameObject
     public void AddLife(int val){
         life = Mathf.Min(life + val, maxLife);
         (new EventInGameChangeLife(life, (float)life / (float)maxLife)).Send();
+    }
+
+    public void AddScores(int val){
+        scores += val;
+
+        (new EventInGameChangeScores(scores)).Send();
+    }
+
+    public void AddCombo(){
+        combo += 1;
+    }
+
+    public void CancleCombo(){
+        combo = 0;
     }
 
     public void AddBuff(InGameBaseBuff buff){

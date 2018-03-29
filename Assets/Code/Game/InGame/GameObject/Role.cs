@@ -82,7 +82,7 @@ public class Role : BaseObject {
         setReadyBulletTime = setReadyBulletMaxTime;
 
         fireActionTime = fireActionMaxTime;
-        //特效 60010014
+        //特效 60010014 60010018
         (new EventCreateEffect(60010018, null, transform.position,-1f)).Send();
 
     }

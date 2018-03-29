@@ -71,6 +71,11 @@ public class Bullet : BaseObject {
             float dis = Vector3.Distance(transform.position, obj.transform.position);
             if (dis < (transform.localScale.x + obj.transform.localScale.x) * 0.7f){
                 obj.Hurt(10);
+
+                if(obj.state == BaseObject.enObjState.die){
+                    Debug.Log("x : " + obj.transform.position.x);
+                    InGameManager.GetInstance().inGamePlayerManager.AddScores(Mathf.Abs((int)(obj.transform.position.x * 5)));
+                }
             }
         }
 
